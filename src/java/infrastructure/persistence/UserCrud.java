@@ -162,5 +162,42 @@ public User getUserById(String id) throws SQLException, UserNotFoundException {
 
     return user;
 }
+// Método para autenticar un usuario por email y contraseña (Login)
+public User getUserByEmailAndPassword(String email, String password) throws UserNotFoundException {
+    User user = null;
+    String query = "SELECT * FROM Usuarios WHERE email = ? AND password = ?";
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        stmt.setString(1, email);
+        stmt.setString(2, password);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            user = new User(
+               
+                rs.getString("password"), // password (varchar)
+                rs.getString("nombre"),    // nombre (varchar)
+                rs.getString("email"),    // email (varchar)
+                rs.getString("apellidos"), // apellidos (varchar)
+                rs.getString("rol"),       // rol (varchar)
+                rs.getString("telefono"),  // telefono (varchar)
+                rs.getString("estado"),    // estado (varchar)
+                rs.getDate("fecha_registro"), // fecha_registro (fecha)
+                rs.getString("id")          // id (int, PK)
+                );
+        } else {
+            String message = "Credenciales incorrectas. No se encontró el usuario.";
+            throw new UserNotFoundException(message);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return user;
+}
+
 
 }
