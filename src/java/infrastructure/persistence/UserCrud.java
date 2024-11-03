@@ -51,6 +51,36 @@ public List<User> getAllUsers() {
 
     return userList;
 }
+// Método para agregar un nuevo usuario
+public void addUser(User user) throws SQLException, DuplicateUserException {
+    String query = "INSERT INTO Users (password, nombre, apellidos, rol, email, telefono, estado, fecha_registro, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        // Asignación de valores a los parámetros
+    
+        stmt.setString(1, user.getPassword());
+        stmt.setString(2, user.getNombre());
+        stmt.setString(3, user.getApellidos());
+        stmt.setString(4, user.getRol());
+        stmt.setString(5, user.getEmail());
+        stmt.setString(6, user.getTelefono());
+        stmt.setString(7, user.getEstado());
+        stmt.setString(8, user.getFecha_registro());
+        stmt.setString(9, user.getId()); 
+
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        // Manejamos una posible excepción de clave duplicada
+        if (e.getErrorCode() == 1062) { // Código de error de clave duplicada en MySQL
+            throw new DuplicateUserException("El usuario con el código o email ya existe.");
+        } else {
+            throw e; // Propagamos la excepción SQLException para que la maneje el servicio
+        }
+    }
+}
 
 
 }
