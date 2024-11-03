@@ -231,6 +231,40 @@ public User getUserByEmail(String email) throws SQLException, UserNotFoundExcept
 
     return user; // Retorno del usuario encontrado
 }
+// Método para buscar usuarios por nombre o email
+public List<User> searchUsers(String searchTerm) {
+    List<User> userList = new ArrayList<>();
+    String query = "SELECT * FROM Users WHERE nombre LIKE ? OR email LIKE ?"; 
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        stmt.setString(1, "%" + searchTerm + "%");
+        stmt.setString(2, "%" + searchTerm + "%");
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            userList.add(
+                new User(
+                    rs.getString("id"),         
+                    rs.getString("password"),
+                    rs.getString("nombre"),
+                    rs.getString("apellidos"),
+                    rs.getString("rol"),
+                    rs.getString("email"),
+                    rs.getString("telefono"),
+                    rs.getString("estado"),
+                    rs.getString("fecha_registro")
+                )
+            );
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // Manejo de excepción
+    }
+
+    return userList; // Retorno de la lista de usuarios
+}
 
 
 }
