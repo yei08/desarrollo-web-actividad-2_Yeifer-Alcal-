@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package domain.model;
+package Domain.model;
 
 /**
  *
  * @author JEIFER ALCALA
  */
-public class usuario {
+public class User {
 
     private String password;
     private String nombre;
@@ -20,10 +20,10 @@ public class usuario {
     private String fecha_registro;
     private String id;
     
-    public usuario() {
+    public User() {
     }
 
-    public usuario(String password, String nombre, String apellidos, String rol, String email, String telefono, String estado, String fecha_registro, String id) {
+    public User(String password, String nombre, String apellidos, String rol, String email, String telefono, String estado, String fecha_registro, String id) {
         this.password = password;
         this.nombre = nombre;
         this.apellidos = apellidos;
