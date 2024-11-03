@@ -82,5 +82,33 @@ public void addUser(User user) throws SQLException, DuplicateUserException {
     }
 }
 
+// Método para actualizar un usuario
+public void updateUser(User user) throws SQLException, UserNotFoundException {
+    String query = "UPDATE Users SET password = ?, nombre = ?, apellidos = ?, rol = ?, email = ?, telefono = ?, estado = ?, fecha_registro = ? WHERE id = ?";
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        // Asignación de valores a los parámetros
+        stmt.setString(1, user.getPassword());
+        stmt.setString(2, user.getNombre());
+        stmt.setString(3, user.getApellidos());
+        stmt.setString(4, user.getRol());
+        stmt.setString(5, user.getEmail());
+        stmt.setString(6, user.getTelefono());
+        stmt.setString(7, user.getEstado());
+        stmt.setString(8, user.getFecha_registro());
+        stmt.setString(9, user.getId()); // Ahora usamos getId() en lugar de getCode()
+
+        int rowsAffected = stmt.executeUpdate();
+        
+        if (rowsAffected == 0) {
+            throw new UserNotFoundException("El usuario con el ID " + user.getId() + " no existe.");
+        }
+
+    } catch (SQLException e) {
+        throw e; // Propagamos la excepción SQLException para que la maneje el servicio
+    }
+}
 
 }
