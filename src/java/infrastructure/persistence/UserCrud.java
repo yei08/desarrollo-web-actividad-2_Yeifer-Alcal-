@@ -198,6 +198,39 @@ public User getUserByEmailAndPassword(String email, String password) throws User
 
     return user;
 }
+// Método para obtener un usuario por email
+public User getUserByEmail(String email) throws SQLException, UserNotFoundException {
+    User user = null;
+    String query = "SELECT * FROM Users WHERE email = ?";
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        stmt.setString(1, email);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            user = new User(
+                rs.getString("id"),
+                rs.getString("password"),
+                rs.getString("nombre"),
+                rs.getString("apellidos"),
+                rs.getString("rol"),
+                rs.getString("email"),
+                rs.getString("telefono"),
+                rs.getString("estado"),
+                rs.getString("fecha_registro")
+            );
+        } else {
+            throw new UserNotFoundException("El usuario con el email " + email + " no existe.");
+        }
+
+    } catch (SQLException e) {
+        throw e; // Propagamos la excepción SQLException para que la maneje el servicio
+    }
+
+    return user; // Retorno del usuario encontrado
+}
 
 
 }
