@@ -129,5 +129,38 @@ public void deleteUser(String id) throws SQLException, UserNotFoundException {
         throw e; // Propagamos la excepción SQLException para que la maneje el servicio
     }
 }
+// Método para obtener un usuario por ID
+public User getUserById(String id) throws SQLException, UserNotFoundException {
+    String query = "SELECT * FROM Users WHERE id = ?";
+    User user = null;
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            user = new User(
+                rs.getString("id"),
+                rs.getString("password"),
+                rs.getString("nombre"),
+                rs.getString("apellidos"),
+                rs.getString("rol"),
+                rs.getString("email"),
+                rs.getString("telefono"),
+                rs.getString("estado"),
+                rs.getString("fecha_registro")
+            );
+        } else {
+            throw new UserNotFoundException("El usuario con el ID " + id + " no existe.");
+        }
+
+    } catch (SQLException e) {
+        throw e; // Propagamos la excepción SQLException para que la maneje el servicio
+    }
+
+    return user;
+}
 
 }
