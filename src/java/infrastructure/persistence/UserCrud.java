@@ -107,6 +107,25 @@ public void updateUser(User user) throws SQLException, UserNotFoundException {
         }
 
     } catch (SQLException e) {
+        throw e; 
+    }
+}
+
+// Método para eliminar un usuario
+public void deleteUser(String id) throws SQLException, UserNotFoundException {
+    String query = "DELETE FROM Users WHERE id = ?";
+
+    try (Connection con = ConnectionDbMySql.getConnection();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        stmt.setString(1, id);
+
+        int rowsAffected = stmt.executeUpdate();
+        if (rowsAffected == 0) {
+            throw new UserNotFoundException("El usuario con el ID " + id + " no existe.");
+        }
+
+    } catch (SQLException e) {
         throw e; // Propagamos la excepción SQLException para que la maneje el servicio
     }
 }
