@@ -4,7 +4,9 @@
  */
 package Domain.model;
 
-import java.sql.Date;
+
+
+
 
 /**
  *
@@ -22,8 +24,7 @@ public class User {
     private String fecha_registro;
     private String id;
     
-    public User(String string, String string2, String string3, String string4, String string5, String string6, String string7, Date date, String string8) {
-    }
+  
 
     public User( String id, String password, String nombre, String apellidos, String rol, String email, String telefono, String estado, String fecha_registro) {
         this.id = id;
