@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="primer algoritmo">
-            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/src/java/bussines/services/UserService.java</file>
+            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/web/views/forms/users/list_all.jsp</file>
+            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/web/index.jsp</file>
+            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/web/Controllers/UserController.jsp</file>
+            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/src/java/Bussines/services/UserService.java</file>
+            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/web/views/forms/users/find_edit_delete.jsp</file>
+            <file>file:/C:/Users/JEIFER%20ALCALA/OneDrive/Escritorio/crudjsp_1/web/views/forms/users/login.jsp</file>
         </group>
     </open-files>
 </project-private>
